@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <!-- Meta tags requeridos -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Pruebas de GPS</title>
+</head>
+<body>
+    <h2 id="mensaje"></h2>
+    <ul>
+        <li>Longitud: <span id="longitud">?</span></li>
+        <li>Latitud: <span id="latitud">?</span></li>
+    </ul>
+    <pre id="resultado"></pre>
+    <script>
+        /* Obtenemos los campos del DOM para reutilizarlos */
+        let mensaje = document.getElementById('mensaje');
+        let longitud = document.getElementById('longitud');
+        let latitud = document.getElementById('latitud');
+        let resultado = document.getElementById('resultado');
+        /* Número de actualizaciones GPS recibidas */
+        let actualizaciones = 0;
+        /* Definimos la función que recibirá las actualizaciones
+            y posteriormente enviará los datos por POST */
+        let recibirDatos = posicion => {
+            /* Incrementamos el número de actualizaciones recibidas */
+            actualizaciones++;
+            mensaje.innerText = 'Actualización Nº' + actualizaciones;
+            /* Actualizamos los datos en el documento */
+            longitud.innerText = posicion.coords.longitude;
+            latitud.innerText = posicion.coords.latitude;
+            /* Configuramos la petición que se realizará al PHP */
+            var peticion = new Request('gps.php', {
+                method: 'POST',
+                body: JSON.stringify({
+                    altitude: posicion.coords.altitude,
+                    altitudeAccuracy: posicion.coords.altitudeAccuracy,
+                    latitude: posicion.coords.latitude,
+                    longitude: posicion.coords.longitude,
+                    speed: posicion.coords.speed,
+                }),
+                headers: new Headers({ 'Content-Type': 'application/json' }),
+            });
+            /* Hacemos efectiva la petición */
+            fetch(peticion).then(
+                datos => datos.json().then(
+                    json => resultado.innerText = JSON.stringify(json)
+                )
+            ).catch(console.log);
+        };
+        if ("geolocation" in navigator) {
+            mensaje.innerText = 'Geolocalización SOPORTADA';
+            mensaje.style.color = 'green';
+            /* Solicitamos una primera actualización inmediata */
+            navigator.geolocation.getCurrentPosition(recibirDatos);
+            /* Nos suscribimos a actualizaciones periódicas de la posición */
+            navigator.geolocation.watchPosition(recibirDatos);
+        } else {
+            mensaje.innerText = 'Geolocalización no disponible en este navegador';
+            mensaje.style.color = 'red';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ingreso de Personal</title> 
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
+	<link rel="stylesheet" href="estilos.css">
+	
+	
+</head>
+<body>
+	
+
+        <div id="wrapper" class="container">
+  
+                
+                 <center>
+
+                    <h1>Ingreso Personal</h1><hr>
+                        <form  method="POST" name="form-work" action="logica/guardar.php">
+                    
+                                <fieldset>
+                                
+                                  <div class="form-group">
+                                    <div class="col-md-6">
+                                      <label class="control-label" for="nome"><i class="fas fa-user"></i></label>
+                                      <input name="nombre" class="form-control" placeholder="Nombre y Apellido" type="text" required>
+                                      </div>
+                                    </div>
+									
+								  <div class="form-group">
+                                    <div class="col-md-6">
+                                      <label class="control-label" for="nome"><i class="fas fa-user"></i></label>
+                                      <input name="dni" class="form-control" placeholder="Numero de Documento" type="text" required>
+                                      </div>
+                                    </div>
+                          
+                                  <div class="form-group">
+                                      <div class="col-md-7">
+                                        <label class="control-label" for="day"><i class="fas fa-calendar-day"></i></label>
+                                        <input name="fecha" class="form-control" placeholder="dd/mm/aaaa" type="date" required>
+									<label class="control-label" for="clock"><i class="fas fa-clock"></i></label>
+                                        <input name="hora" class="form-control" placeholder="Horario de ingreso" type="time" required>
+                                      </div>
+                                    </div>
+                          
+                                  
+                          
+                                   
+                                  
+                                    <div class="form-group">
+                                      <div class="col-md-12">
+                                        <button type="submit" class="button">Guardar</button>
+                                      </div>
+                                    </div>
+									
+									<div class="form-group">
+                                      <div class="col-md-12">
+                                        <a href="tabla.php">
+                                        <div class="button">Listado de ingreso</div>
+                                      </a>                                      
+									  </div>
+                                    </div>
+									
+                                </fieldset> 
+							
+								
+                              </form>
+					 <h2>Creado por Marcelo Tremari</h2><hr>
+                 </center>
+              </div>
+    
+
+
+
+
+</body>
+
+</html>
